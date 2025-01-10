@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { getWeatherByCity, getWeatherByZip } from '../services/penta-api';
 import WeatherCard from '../components/WeatherCard';
 import SearchBar from '../components/SearchBar';
