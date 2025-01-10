@@ -32,19 +32,22 @@ h1 {
     cursor: pointer;
 }
 
-/* Container for Weather Cards */
-.weather-cards-container {
+
+/* Daily Forecast Styling */
+.daily-forecast {
     display: flex;
-    justify-content: center;
-    /* Center the cards horizontally */
-    align-items: flex-start;
-    /* Align cards at the top */
-    flex-wrap: wrap;
-    /* Allow cards to wrap to the next line if needed */
-    gap: 20px;
-    /* Add space between weather cards */
-    margin-top: 20px;
-    padding: 0 10px;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Container for Day Weather Cards */
+.day-weather-cards {
+    display: flex;
+    flex-wrap: nowrap;
+    /* Ensures cards stay in one line horizontally */
+    gap: 10px;
+    overflow-x: auto;
+    /* Scroll horizontally if needed */
 }
 
 /* Styling for Individual Weather Cards */
@@ -54,7 +57,7 @@ h1 {
     text-align: center;
     background-color: #f9f9f9;
     border-radius: 8px;
-    max-width: 300px;
+    max-width: 250px;
     /* Set max width for each card */
     flex: 0 0 auto;
     /* Ensure the cards have fixed width and don't shrink */
@@ -63,7 +66,6 @@ h1 {
     align-items: center;
 }
 
-/* Styling for the Card Content */
 .weather-card h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
@@ -106,4 +108,41 @@ h1 {
 
 .weather-card .toggle-btn:hover {
     background-color: #45a049;
+}
+
+/* Day Buttons Styling */
+.day-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.day-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.day-button.selected {
+    background-color: #45a049;
+    /* Change color for selected day */
+}
+
+.day-button:hover {
+    background-color: #45a049;
+}
+
+/* Styling for Weather Cards Container */
+.weather-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
 }

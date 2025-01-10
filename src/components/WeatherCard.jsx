@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function WeatherCard({ time, temp, description, icon, toggleMetric, metric }) {
   const date = new Date(time * 1000);
