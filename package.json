@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://nicohub007.github.io/NicoHub007.io-Penta-Clima",
+  "homepage": "https://nicohub007.github.io/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
