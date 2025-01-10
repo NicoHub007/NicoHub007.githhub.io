@@ -1,28 +1,26 @@
-// src/services/penta-api.jsx
-const API_KEY = import.meta.env.VITE_API_KEY;  // API key from .env file
+const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = "https://api.openweathermap.org/data/2.5/forecast";
-const GEO_URL = "https://api.openweathermap.org/geo/1.0";  // Base URL for geocoding API
+const GEO_CITY_URL = "http://api.openweathermap.org/geo/1.0/direct";
+const GEO_ZIP_URL = "http://api.openweathermap.org/geo/1.0/zip";
 
-// Function to get coordinates by city name
-export async function getCoordinatesByCity(cityName) {
-    const url = `${GEO_URL}/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data[0];  // Assuming first result is the correct one
-}
+export const getWeatherByCity = async (city) => {
+    const geoResponse = await fetch(`${GEO_CITY_URL}?q=${city}&limit=1&appid=${API_KEY}`);
+    const geoData = await geoResponse.json();
+    const { lat, lon } = geoData[0];
 
-// Function to get coordinates by ZIP code
-export async function getCoordinatesByZip(zipCode, countryCode) {
-    const url = `${GEO_URL}/zip?zip=${zipCode},${countryCode}&appid=${API_KEY}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data[0];  // Assuming first result is the correct one
-}
+    const weatherResponse = await fetch(
+        `${BASE_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`
+    );
+    return weatherResponse.json();
+};
 
-// Function to get weather data by coordinates
-export async function getWeatherData(lat, lon) {
-    const url = `${BASE_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`; // Using metric units (°C)
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;  // Returns weather data for the next 5 days, every 3 hours
-}
+export const getWeatherByZip = async (zip) => {
+    const geoResponse = await fetch(`${GEO_ZIP_URL}?zip=${zip}&appid=${API_KEY}`);
+    const geoData = await geoResponse.json();
+    const { lat, lon } = geoData[0];
+
+    const weatherResponse = await fetch(
+        `${BASE_URL}?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`
+    );
+    return weatherResponse.json();
+};

@@ -1,48 +1,56 @@
-// src/pages/Home.jsx
-import { useState } from "react";
-import { getCoordinatesByCity, getCoordinatesByZip, getWeatherData } from "../services/penta-api";
-import SearchBar from "../components/SearchBar";
-import WeatherCard from "../components/WeatherCard";
+import  { useState, useEffect } from 'react';
+import { getWeatherByCity, getWeatherByZip } from '../services/penta-api';
+import WeatherCard from '../components/WeatherCard';
+import SearchBar from '../components/SearchBar';
 
 function Home() {
-  const [weatherData, setWeatherData] = useState([]);
-  const [error, setError] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
+  const [query, setQuery] = useState('New York');
+  const [loading, setLoading] = useState(false);
+  const [metric, setMetric] = useState('F');
 
-  const handleSearch = async (query) => {
-    setError(null);
-    let coords;
+  const fetchWeather = async (location) => {
+    setLoading(true);
     try {
-      if (query.match(/^\d{5}$/)) {
-        // If it's a ZIP code (assuming US)
-        coords = await getCoordinatesByZip(query, "US");
+      let data;
+      if (isNaN(location)) {
+        data = await getWeatherByCity(location);
       } else {
-        // Otherwise, it's treated as a city name
-        coords = await getCoordinatesByCity(query);
+        data = await getWeatherByZip(location);
       }
-
-      const weather = await getWeatherData(coords.lat, coords.lon);
-      setWeatherData(weather.list);
+      setWeatherData(data);
     } catch (err) {
-      setError("Could not fetch weather data. Please try again.");
+      console.error("Error fetching weather data", err);
+    } finally {
+      setLoading(false);
     }
   };
 
+  useEffect(() => {
+    fetchWeather(query);
+  }, [query]);
+
+  const toggleMetric = () => setMetric((prev) => (prev === 'F' ? 'C' : 'F'));
+
+  if (loading) return <p>Loading...</p>;
+
   return (
-    <div>
-      <h1>Weather Forecast</h1>
-      <SearchBar onSearch={handleSearch} />
-      {error && <p>{error}</p>}
-      <div className="weather-cards">
-        {weatherData.map((entry, index) => (
+    <div className="home-container">
+      <h1>Welcome to Penta Clima</h1>
+      <SearchBar onSearch={setQuery} />
+      {weatherData && (
+        <div className="weather-card-container">
+          <h2>Weather for {weatherData.city.name} on {new Date().toLocaleDateString()}</h2>
           <WeatherCard
-            key={index}
-            time={entry.dt}
-            temp={entry.main.temp}
-            description={entry.weather[0].description}
-            icon={entry.weather[0].icon}
+            time={weatherData.list[0].dt}
+            temp={weatherData.list[0].main.temp}
+            description={weatherData.list[0].weather[0].description}
+            icon={weatherData.list[0].weather[0].icon}
+            toggleMetric={toggleMetric}
+            metric={metric}
           />
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

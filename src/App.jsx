@@ -3,7 +3,7 @@ import Nav from './components/Nav';
 import Home from './pages/Home';
 import About from './pages/About';
 import Forecast from './pages/Forecast';
-
+import './assets/style.css'
 import './App.css'
 
 function App() {

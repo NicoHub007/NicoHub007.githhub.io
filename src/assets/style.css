@@ -1,4 +1,4 @@
-/* src/style.css */
+/* General Body Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -6,11 +6,13 @@ body {
     background-color: #f0f8ff;
 }
 
+/* Header Styling */
 h1 {
     text-align: center;
     margin-top: 20px;
 }
 
+/* Search Bar Styling */
 .search-bar {
     display: flex;
     justify-content: center;
@@ -30,24 +32,78 @@ h1 {
     cursor: pointer;
 }
 
-.weather-cards {
+/* Container for Weather Cards */
+.weather-cards-container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    /* Center the cards horizontally */
+    align-items: flex-start;
+    /* Align cards at the top */
+    flex-wrap: wrap;
+    /* Allow cards to wrap to the next line if needed */
+    gap: 20px;
+    /* Add space between weather cards */
     margin-top: 20px;
+    padding: 0 10px;
 }
 
+/* Styling for Individual Weather Cards */
 .weather-card {
-    background-color: #fff;
     border: 1px solid #ddd;
-    margin: 10px;
     padding: 20px;
-    width: 150px;
     text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    max-width: 300px;
+    /* Set max width for each card */
+    flex: 0 0 auto;
+    /* Ensure the cards have fixed width and don't shrink */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.weather-card img {
-    width: 50px;
-    height: 50px;
+/* Styling for the Card Content */
+.weather-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.weather-card .time {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.weather-card .weather-icon {
+    width: 80px;
+    /* Adjust icon size */
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+.weather-card .description {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.weather-card .temperature {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.weather-card .toggle-btn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.weather-card .toggle-btn:hover {
+    background-color: #45a049;
 }
