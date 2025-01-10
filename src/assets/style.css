@@ -44,7 +44,6 @@ h1 {
 .day-weather-cards {
     display: flex;
     flex-wrap: nowrap;
-    /* Ensures cards stay in one line horizontally */
     gap: 10px;
     overflow-x: auto;
     /* Scroll horizontally if needed */
@@ -60,7 +59,6 @@ h1 {
     max-width: 250px;
     /* Set max width for each card */
     flex: 0 0 auto;
-    /* Ensure the cards have fixed width and don't shrink */
     display: flex;
     flex-direction: column;
     align-items: center;
